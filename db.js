@@ -31,7 +31,7 @@ exports.getSongsByGroup = function(groupId) {
         .filter(song => song.groupId === groupId)
         .map(song => {
             return {
-                alias: song.alias,
+                id: song.id,
                 group: song.group,
                 groupId: song.groupId,
                 title: song.title,
@@ -44,6 +44,6 @@ exports.getSongById = function(id) {
   return db.lyrics.find(song => song.id === id)
 }
 
-exports.getAllSongs = function(alias) {
+exports.getAllSongs = function() {
     return db.lyrics;
 }
