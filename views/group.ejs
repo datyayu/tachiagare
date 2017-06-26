@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tachiagare! | <%= group %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <% include shared/navbar.ejs %>
+
+    <div class="content">
+        <h2 class="content-title">Songs by <%= group %></h2>
+
+        <ul class="content-list">
+            <% songs.forEach(function(song) { %>
+                <li class="content-item">
+                    <a class="content-link" href="/songs/<%= song.id %>">
+                        <%= song.title %>
+                    </a>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>
