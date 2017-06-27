@@ -1,7 +1,11 @@
 (function() {
 // Globals (I'm so sorry about this ;_;)
-var currentSong = undefined
-var tick = undefined
+var currentSong = undefined // Song data.
+var tick = undefined // Custom timer.
+
+// Constants
+var LINE_HEIGHT = 45 // Used for scrolling.
+var UPDATE_INTERVAL = 250 // Update interval (ms).
 
 // Dom elements
 var $player = document.getElementById('js-audio')
@@ -49,11 +53,11 @@ $player.addEventListener('play', function() {
     // between 200ms-600ms (at least on my pc), which really
     // fucks up the lyrics timing. So instead of relaying
     // on it, we use our own timer to keep the updates
-    // happening at a constant rate.
+    // happening at a constant rate .
     tick = setInterval(() => {
-        currentSong.time = currentSong.time + .25
+        currentSong.time = currentSong.time + (UPDATE_INTERVAL / 1000)
         renderSongLyrics()
-    }, 250)
+    }, UPDATE_INTERVAL)
 })
 
 /**
@@ -140,6 +144,8 @@ function renderSongLyrics() {
     var template = ''
     var currentTime = currentSong.time
     var currentCalls = ''
+    var linesHighlighted = 0
+    var lineWasHighlighted = false
 
     words.forEach(function(item) {
         var text = item[0]
@@ -147,9 +153,15 @@ function renderSongLyrics() {
         var isCall = item[2]
         var callColor = item[3]
         var mustBeHighlighted = (currentTime >= start)
+        lineWasHighlighted = lineWasHighlighted || mustBeHighlighted
 
         // If the item is empty, it's a line break, so we add the calls under it.
         if (!text || start === undefined) {
+            if (lineWasHighlighted) {
+                lineWasHighlighted = false
+                linesHighlighted++
+            }
+
             template += `<br />${currentCalls}</br>`
             currentCalls = ''
             return
@@ -178,6 +190,25 @@ function renderSongLyrics() {
     })
 
     morphdom($app, `<div class="lyrics"> ${template} </div>`)
+    scrollLines(linesHighlighted)
+}
+
+/**
+ * Scroll the lyrics container to keep it focus on the
+ * current line. (Only scrolls on new lines)
+ *
+ * @param {number} lines Number of lines to scroll
+ */
+var currentLines = 0
+function scrollLines(lines) {
+    if (currentLines === lines) return
+    currentLines = lines
+
+    if (lines > 5) {
+        $app.scrollTop = lines * LINE_HEIGHT - (5 * LINE_HEIGHT)
+    } else {
+        $app.scrollTop = 0
+    }
 }
 
 // start !!
