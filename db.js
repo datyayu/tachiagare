@@ -5,19 +5,29 @@ var LYRICS_PATH = path.resolve(__dirname, 'songs')
 
 var db = {
     lyrics: [],
-    groups: new Set(),
+    groups: [],
 }
 
 // Fill the database
 var files = fs.readdirSync(LYRICS_PATH);
+
 files.forEach(file => {
     var filePath = path.resolve(LYRICS_PATH, file)
     var fileContent = fs.readFileSync(filePath)
     var info = JSON.parse(fileContent)
 
-    db.groups.add({ name: info.group, id: info.groupId })
+    db.groups.push({ name: info.group, id: info.groupId })
     db.lyrics.push(info)
 })
+
+// Remove duplicates
+db.groups = db.groups.reduce((stored, group) => {
+    if (stored.some(g => g.id == group.id)) {
+        return stored
+    }
+
+    return [...stored, group]
+}, [])
 
 
 // Exports
