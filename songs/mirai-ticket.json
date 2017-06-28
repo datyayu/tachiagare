@@ -7,7 +7,7 @@
 
     "color": "#ffaa22",
     "audioFile": "https://s3-us-west-1.amazonaws.com/tachiagare/02+MIRAI+TICKET.mp3",
-    "embedded": null,
+    "embedded": "<div style=\"width: 100%; height: 0px; position: relative; padding-bottom: 56.250%;\"><iframe src=\"https://streamable.com/s/hifi/wdwmhz\" frameborder=\"0\" width=\"100%\" height=\"100%\" allowfullscreen style=\"width: 100%; height: 100%; position: absolute; top: 0; left: 0;\"></iframe></div>",
 
     "lyrics": [
         ["Hikari", 34.7],

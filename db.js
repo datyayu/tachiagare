@@ -33,7 +33,9 @@ db.groups = db.groups.reduce((stored, group) => {
 // Exports
 
 exports.getGroups = function() {
-    return [...db.groups]
+    return db.groups.sort(function(a, b) {
+        return a.name > b.name
+    })
 }
 
 exports.getSongsByGroup = function(groupId) {
@@ -48,6 +50,9 @@ exports.getSongsByGroup = function(groupId) {
                 color: song.color
             }
         })
+        .sort(function(a, b) {
+            return a.title > b.title
+        })
 }
 
 exports.getSongById = function(id) {
@@ -55,5 +60,7 @@ exports.getSongById = function(id) {
 }
 
 exports.getAllSongs = function() {
-    return db.lyrics;
+    return db.lyrics.sort(function(a, b) {
+        return a.title > b.title
+    });
 }

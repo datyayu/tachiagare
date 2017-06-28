@@ -4,8 +4,9 @@ var currentSong = undefined // Song data.
 var tick = undefined // Custom timer.
 
 // Constants
-var LINE_HEIGHT = 45 // Used for scrolling.
-var UPDATE_INTERVAL = 250 // Update interval (ms).
+var LINE_HEIGHT = 34 // Used for scrolling.
+var UPDATE_INTERVAL = 100 // Update interval (ms).
+var MAX_OFFSET = UPDATE_INTERVAL / 1000 // seconds
 
 // Dom elements
 var $player = document.getElementById('js-audio')
@@ -29,7 +30,7 @@ $player.addEventListener('timeupdate', function(event) {
     var playerTime = $player.currentTime
     var offset = 1
 
-    if (currentTime > playerTime + offset || currentTime < playerTime - offset) {
+    if (currentTime > playerTime + MAX_OFFSET || currentTime < playerTime - MAX_OFFSET) {
         currentSong.time = playerTime
     }
 })
@@ -145,7 +146,9 @@ function renderSongLyrics() {
     var currentTime = currentSong.time
     var currentCalls = ''
     var linesHighlighted = 0
+    var lineBreaks = 0
     var lineWasHighlighted = false
+    var lastWordWasLineBreak = false
 
     words.forEach(function(item) {
         var text = item[0]
@@ -157,15 +160,24 @@ function renderSongLyrics() {
 
         // If the item is empty, it's a line break, so we add the calls under it.
         if (!text || start === undefined) {
+            if (lastWordWasLineBreak) {
+                lineBreaks++;
+            }
+
+
             if (lineWasHighlighted) {
+                lastWordWasLineBreak = true
                 lineWasHighlighted = false
                 linesHighlighted++
             }
 
             template += `<br />${currentCalls}</br>`
             currentCalls = ''
+
             return
         }
+
+        lastWordWasLineBreak = false
 
         // Store the calls.
         if (isCall) {
@@ -190,7 +202,8 @@ function renderSongLyrics() {
     })
 
     morphdom($app, `<div class="lyrics"> ${template} </div>`)
-    scrollLines(linesHighlighted)
+    console.log(linesHighlighted, lineBreaks)
+    scrollLines(linesHighlighted + lineBreaks)
 }
 
 /**

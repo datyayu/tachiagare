@@ -168,6 +168,7 @@ html, body {
     .lyrics {
         max-width: 90vw;
         max-height: calc(90vh - 3em);
+        overflow-y: auto;
         margin-top: 1em;
         padding: 1em 5vw;
     }
