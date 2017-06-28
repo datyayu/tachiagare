@@ -4,7 +4,7 @@ var currentSong = undefined // Song data.
 var tick = undefined // Custom timer.
 
 // Constants
-var LINE_HEIGHT = 34 // Used for scrolling.
+var LINE_HEIGHT = 38 // Used for scrolling.
 var UPDATE_INTERVAL = 100 // Update interval (ms).
 var MAX_OFFSET = UPDATE_INTERVAL / 1000 // seconds
 
@@ -96,7 +96,7 @@ function start() {
             setSong(data.audioFile)
             renderSongLyrics()
         })
-        .catch(console.log)
+        .catch(console.warn)
 }
 
 /**
@@ -202,7 +202,6 @@ function renderSongLyrics() {
     })
 
     morphdom($app, `<div class="lyrics"> ${template} </div>`)
-    console.log(linesHighlighted, lineBreaks)
     scrollLines(linesHighlighted + lineBreaks)
 }
 
