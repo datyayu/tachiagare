@@ -1,179 +1,180 @@
-html, body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar {
-    background: #448f44;
-    display: flex;
-    justify-content: space-between;
-    top: 0;
-    z-index: 9;
+  background: #448f44;
+  display: flex;
+  justify-content: space-between;
+  top: 0;
+  z-index: 9;
 }
 
 .navbar-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
 }
 
 .navbar-list.left {
-    width: 100%;
+  width: 100%;
 }
 
 .navbar-item {
-    border-right: 1px solid #ccc;
-    text-align: center;
-    flex: 1;
+  border-right: 1px solid #ccc;
+  text-align: center;
+  flex: 1;
 }
 
 .right .navbar-item {
-    border-left: 1px solid #ccc;
+  border-left: 1px solid #ccc;
 }
 
 .navbar-link {
-    color: #eee;
-    text-decoration: none;
-    padding: 1em;
-    display: block;
+  color: #eee;
+  text-decoration: none;
+  padding: 1em;
+  display: block;
 }
 
 .navbar-link:hover {
-    background: #446f44;
-    color: #fff;
+  background: #446f44;
+  color: #fff;
 }
 
 .content {
-    max-width: 80vw;
-    margin: 0 auto;
+  max-width: 80vw;
+  margin: 0 auto;
 }
 
 .content-title {
-    text-align: center;
-    font-size: 2em;
+  text-align: center;
+  font-size: 2em;
 }
 
 .content-link {
-    color: #448f44;
-    text-decoration: none;
-    font-size: 1.2em;
+  color: #448f44;
+  text-decoration: none;
+  font-size: 1.2em;
 }
 
 .content-link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .container {
-    display: flex;
-    justify-content: space-around;
-    max-width: 1200px;
-    margin: 0 auto;
-    flex-direction: column;
+  display: flex;
+  justify-content: space-around;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-direction: column;
 }
 
 .song-data {
-    text-align: center;
-    min-width: 45%;
-    overflow-y: auto;
-    overflow-x: hidden;
+  text-align: center;
+  min-width: 45%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .song-title {
-    font-size: 2.5em;
-    margin-bottom: 0;
+  font-size: 2.5em;
+  margin-bottom: 0;
 }
 
 .song-group {
-    color: #aaa;
-    margin-top: 0;
+  color: #aaa;
+  margin-top: 0;
 }
 
 .song-group:hover {
-    color: #666;
-    transition: color 200ms ease-in-out;
+  color: #666;
+  transition: color 200ms ease-in-out;
 }
 
 .song-group-link {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .data-title {
-    margin-top: 1em;
-    margin-bottom: 0;
-    color: #333;
+  margin-top: 1em;
+  margin-bottom: 0;
+  color: #333;
 }
 
 .data-subtitle {
-    margin-top:.5em;
-    font-size: .75em;
+  margin-top: .5em;
+  font-size: .75em;
 }
 
 .audio-player {
-    width: 90%;
-    margin-top: 1em;
-    position: sticky;
-    top: 0;
-    left: 0;
+  width: 90%;
+  margin-top: 1em;
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 .video-player {
-    display: none;
+  display: none;
 }
 
 .lyrics-container {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .lyrics {
-    max-width: 90vw;
-    margin: 0 auto;
-    max-height: 90vh;
-    overflow: auto;
+  max-width: 90vw;
+  margin: 0 auto;
+  max-height: 90vh;
+  overflow: auto;
 }
 
 .desktop-only {
-    display: none;
+  display: none;
 }
 
 @media screen and (min-width: 768px) {
-    .container {
-        flex-direction: row;
-        justify-content: space-between;
-        width: 80vw;
-    }
+  .container {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80vw;
+  }
 
-    .navbar-item {
-        flex: initial;
-    }
+  .navbar-item {
+    flex: initial;
+  }
 
-    .song-data {
-        max-height: 95vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
+  .song-data {
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
 
-    .desktop-only {
-        display: block;
-    }
+  .desktop-only {
+    display: block;
+  }
 
-    .audio-player {
-        width: 100%;
-    }
+  .audio-player {
+    width: 100%;
+  }
 
-    .video-player {
-        display: block;
-    }
+  .video-player {
+    display: block;
+  }
 
-    .lyrics {
-        max-width: 90vw;
-        max-height: calc(90vh - 3em);
-        overflow-y: auto;
-        margin-top: 1em;
-        padding: 1em 5vw;
-    }
+  .lyrics {
+    max-width: 90vw;
+    max-height: calc(90vh - 3em);
+    overflow-y: auto;
+    margin-top: 1em;
+    padding: 1em 5vw;
+  }
 }

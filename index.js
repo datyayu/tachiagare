@@ -1,81 +1,101 @@
-var path = require('path')
-var express = require('express')
-var bodyParser = require('body-parser')
-var db = require('./db')
+const path = require("path");
+const express = require("express");
+const bodyParser = require("body-parser");
+const db = require("./db");
 
-var app = express()
-var STATIC_DIR = path.resolve(__dirname, 'static')
+const app = express();
+const STATIC_DIR = path.resolve(__dirname, "static");
+const PORT = process.env.PORT || 3000;
 
+/*********************
+ * CONFIG MIDDLEWARE *
+ *********************/
 
-app.use(bodyParser.json())
-app.set('view engine', 'ejs')
+app.use(bodyParser.json());
+app.set("view engine", "ejs");
+app.use("/", express.static(STATIC_DIR));
 
-app.use('/', express.static(STATIC_DIR))
+/*********************
+ *    SONGS ROUTES   *
+ *********************/
 
-// Songs
+// Get the song via API.
+app.get("/api/songs/:id", (req, res) => {
+  const song = db.getSongById(req.params.id);
 
-app.get('/api/songs/:id', function(req, res) {
-  var song = db.getSongById(req.params.id)
-
-  if (!song) return res.sendStatus(404)
+  if (!song) return res.sendStatus(404);
 
   res.json(song);
-})
+});
 
-app.get('/songs/:id', function(req, res) {
-  var song = db.getSongById(req.params.id)
+// Show song
+app.get("/songs/:id", function(req, res) {
+  const song = db.getSongById(req.params.id);
 
-  if (!song) return res.sendStatus(404)
+  if (!song) return res.sendStatus(404);
 
-  res.render('song', {
+  res.render("song", {
     songUrl: `/api/songs/${song.id}`,
     songTitle: song.title,
     songGroup: song.group,
     songGroupId: song.groupId
-  })
-})
+  });
+});
 
-app.get('/songs', function(req, res) {
-  var songs = db.getAllSongs()
+// Index songs
+app.get("/songs", function(req, res) {
+  const songs = db.getAllSongs();
 
-  if (!songs) return res.sendStatus(404)
+  if (!songs) return res.sendStatus(404);
 
-  res.render('song-list', {
+  res.render("song-list", {
     songs: songs
   });
-})
+});
 
-app.get('/', function(req, res) {
-  res.redirect('/songs')
-})
+/*********************
+ *   GROUPS ROUTES   *
+ *********************/
 
+// Show groups
+app.get("/groups/:groupId", function(req, res) {
+  const groupId = req.params.groupId;
+  const songs = db.getSongsByGroup(groupId);
+  const group = db.getGroupById(groupId);
 
+  if (!songs || !group) return res.sendStatus(404);
 
-// Groups
-
-app.get('/groups/:groupId', function(req, res) {
-  var groupId = req.params.groupId
-  var songs = db.getSongsByGroup(groupId)
-  var group = db.getGroups().find(group => group.id === groupId)
-
-  if (!songs || !group) return res.sendStatus(404)
-
-  res.render('group', {
+  res.render("group", {
     songs: songs,
-    group: group.name,
-  })
-})
+    group: group.name
+  });
+});
 
-app.get('/groups', function(req, res) {
-  var groups = db.getGroups()
+// Index groups
+app.get("/groups", function(req, res) {
+  const groups = db.getAllGroups();
 
-  if (!groups) return res.sendStatus(404)
+  if (!groups) return res.sendStatus(404);
 
-  res.render('group-list', {
-    groups: groups,
-  })
-})
+  res.render("group-list", {
+    groups: groups
+  });
+});
 
+/*********************
+ *    HOME ROUTE     *
+ *********************/
 
+// We don't have a home, so just redirect to
+// the main index ¯\_(ツ)_/¯
+app.get("/", function(req, res) {
+  res.redirect("/songs");
+});
 
-app.listen(process.env.PORT || 3000)
+/*********************
+ *  START LISTENING  *
+ *********************/
+
+app.listen(PORT, function() {
+  console.log(`App started on port ${PORT}`);
+});
