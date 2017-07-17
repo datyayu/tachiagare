@@ -1,38 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tachiagare! | <%= songTitle %> - <%= songGroup %></title>
+    <title>Tachiagare! |
+        <%= songTitle %> -
+            <%= songGroup %>
+    </title>
     <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
     <% include shared/navbar.ejs %>
 
-    <div class="container">
-        <div class="song-data">
-            <div>
-                <h2 class="song-title" id="js-title"><%= songTitle %></h2>
-                <a class="song-group-link" href="/groups/<%= songGroupId %>">
-                    <h3 class="song-group" id="js-group"><%= songGroup %></h3>
-                </a>
+        <div class="container">
+            <div class="song-data">
+                <div>
+                    <h2 class="song-title" id="js-title">
+                        <%= songTitle %>
+                    </h2>
+                    <a class="song-group-link" href="/groups/<%= songGroupId %>">
+                        <h3 class="song-group" id="js-group">
+                            <%= songGroup %>
+                        </h3>
+                    </a>
+                </div>
+
+                <audio class="audio-player" id="js-audio" controls></audio>
+
+                <div class="video-player">
+                    <h2 class="data-title"> Live
+                        <h2>
+                            <div id="js-video">No video available</div>
+                </div>
             </div>
 
-            <audio class="audio-player" id="js-audio" controls></audio>
-
-            <div class="video-player">
-                <h2 class="data-title"> Live <h2>
-                <div id="js-video">No video available</div>
+            <div class="lyrics-container">
+                <div class="lyrics" id="js-lyrics" data-song="<%= songUrl %>"></div>
             </div>
         </div>
 
-        <div class="lyrics-container">
-            <div class="lyrics" id="js-lyrics" data-song="<%= songUrl %>"></div>
-        </div>
-    </div>
-
-    <script src="/morphdom.js" defer></script>
-    <script src="/app.js" defer></script>
+        <script src="/morphdom.js" defer></script>
+        <script src="/audio-player.js" defer></script>
+        <script src="/lyrics-renderer.js" defer></script>
+        <script src="/app.js" defer></script>
 </body>
+
 </html>

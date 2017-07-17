@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,21 +8,23 @@
     <title>Tachiagare! | Groups </title>
     <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
     <% include shared/navbar.ejs %>
 
-    <div class="content">
-        <h2 class="content-title">Groups</h2>
+        <div class="content">
+            <h2 class="content-title">Groups</h2>
 
-        <ul class="content-list">
-            <% groups.forEach(function(group) { %>
-                <li class="content-item">
-                    <a class="content-link" href="/groups/<%= group.id %>">
-                        <%= group.name %>
-                    </a>
-                </li>
-            <% }) %>
-        </ul>
-    </div>
+            <ul class="content-list">
+                <% groups.forEach(function(group) { %>
+                    <li class="content-item">
+                        <a class="content-link" href="/groups/<%= group.id %>">
+                            <%= group.name %>
+                        </a>
+                    </li>
+                    <% }) %>
+            </ul>
+        </div>
 </body>
+
 </html>

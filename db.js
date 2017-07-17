@@ -9,7 +9,7 @@ const LYRICS_PATH = path.resolve(__dirname, "songs");
 
 class Database {
   constructor() {
-    this.db = this._createDatabase(LYRICS_PATH);
+    this._db = this._createDatabase(LYRICS_PATH);
   }
 
   /*******************
@@ -22,7 +22,7 @@ class Database {
    * @return {Object[]} List of groups.
    */
   getAllGroups() {
-    return this.db.groups;
+    return this._db.groups;
   }
 
   /**
@@ -31,7 +31,7 @@ class Database {
    * @return {Object[]} List of songs.
    */
   getAllSongs() {
-    return this.db.songs.map(this._cleanSongInfo);
+    return this._db.songs.map(this._cleanSongInfo);
   }
 
   /**
@@ -41,7 +41,7 @@ class Database {
    * @return {Object|null} Group, if found.
    */
   getGroupById(id) {
-    return this.db.groups.find(group => group.id === id);
+    return this._db.groups.find(group => group.id === id);
   }
 
   /**
@@ -51,7 +51,7 @@ class Database {
    * @return {Object|null} Song, if found.
    */
   getSongById(id) {
-    return this.db.songs.find(song => song.id === id);
+    return this._db.songs.find(song => song.id === id);
   }
 
   /**
@@ -61,7 +61,7 @@ class Database {
    * @return {Object[]}
    */
   getSongsByGroup(groupId) {
-    return this.db.songs
+    return this._db.songs
       .filter(song => song.groupId === groupId)
       .map(this._cleanSongInfo);
   }
